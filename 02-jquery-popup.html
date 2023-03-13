@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            //on click fading in/out the called class
+            $('#btn').click(function() {
+                $('.window').fadeToggle();
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="btn" class="button">Click me!</div>
+    <div class="window">this is the window</div>
+</body>
+</html>
