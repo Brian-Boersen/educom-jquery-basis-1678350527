@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">
+    <script src="js/jquery.js"></script>
+    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            
+            //display table content from server
+            const dTable = $("#theBeatles").DataTable({
+                ajax: "https://api.dev-master.ninja/js/beatles",
+                columns: [
+                    {data: "id"},
+                    {data: "firstname"},
+                    {data: "lastname"},
+                    {data: "dateOfBirth"},
+                    {data: "email"},
+                    ]
+            });
+
+            //reload the table every 10 seconds
+            setInterval(function(){dTable.ajax.reload();},10000);
+
+            //save data for the table to the server
+            $("#save").click(function(){
+                const data = 
+                {
+                    firstname:$("#firstname").val(),
+                    lastname:$("#lastname").val(),
+                    email: $("#email").val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://api.dev-master.ninja/js/person/save",
+                    data: data,
+                    success: function(data){
+                        console.log(data);
+                        dTable.ajax.reload();
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <table id="theBeatles" class="display nowrap dataTable dtr-inline collapsed">
+        <thead>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+        </thead>  
+        <tbody>
+        </tbody>  
+    </table>
+
+    <form id="form">
+        Firstname: <input type="text" id="firstname"><br>
+        Lastname: <input type="text" id="lastname"><br>
+        Email: <input type="text" id="email"><br>
+    </form>
+    <button id="save">Save</button>
+</body>
+</html>
