@@ -5,7 +5,7 @@ html, body {
 
 #background-image {
     width: 100%;    
-    position: relative;
+    position: absolute;
     height: 90%;   
 }
 
