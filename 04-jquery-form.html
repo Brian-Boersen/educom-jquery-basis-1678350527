@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $("#save").click(function(){
+                const data = 
+                {
+                    id:$("#id").val(),
+                    name:$("#name").val().toUpperCase(),
+                    value: $("#city").val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "https://api.dev-master.ninja/js/form",
+                    data: data,
+                    success: function(data){
+                        $("#name").val(data.form_data.name);
+                        $("#date").val(data.date);
+
+                        console.log(data);
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <form id="form">
+        <input type="text" name="id" id="id" value="1234"><br>
+        Name: <input type="text" id="name"><br>
+        City: <input type="text" id="city"><br>
+        Date: <input type="text" id="date" disabled><br>
+    </form>
+    <button id="save">Save</button>
+</body>
+</html>
